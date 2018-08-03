@@ -1,0 +1,17 @@
+device42:
+  host: 192.168.0.1
+  username: admin
+  password: pass
+
+airwatch:
+  host: __subdomain__.awmdm.com
+  username: admin
+  password: pass
+  tenant_code: code 
+  lookup_limit: 10000
+
+options:
+  debug: False
+  dry_run: False
+  no_ips: False
+  no_cellular_ips: True
