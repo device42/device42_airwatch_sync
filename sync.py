@@ -61,30 +61,26 @@ class Integration:
                 'macaddress': device['computer']['MacAddress'],
             })
 
-        # if device['network']['IPAddress']['WifiIPAddress']:
-        #     ips.append({
-        #         'ipaddress': device['network']['IPAddress']['WifiIPAddress'],
-        #     })
-
-        if 'WifiIPAddress' in device['network']['IPAddress']:
-            ips.append({
-                'ipaddress': device['network']['IPAddress']['WifiIPAddress'],
-            })
-            if 'WifiMacAddress' in device['network']['WifiInfo']:
-                macs.append({
-                    'macaddress': device['network']['WifiInfo']['WifiMacAddress'],
-                })
-
-        if 'EthernetIPAddress' in device['network']['IPAddress']:
-            ips.append({
-                'ipaddress': device['network']['IPAddress']['EthernetIPAddress'],
-            })
-
-        if not options['no_cellular_ips']:
-            if 'CellularIPAddress' in device['network']['IPAddress']:
+        if 'IPAddress' in device['network']:
+            if 'WifiIPAddress' in device['network']['IPAddress']:
                 ips.append({
-                    'ipaddress': device['network']['IPAddress']['CellularIPAddress'],
+                    'ipaddress': device['network']['IPAddress']['WifiIPAddress'],
                 })
+                if 'WifiMacAddress' in device['network']['WifiInfo']:
+                    macs.append({
+                        'macaddress': device['network']['WifiInfo']['WifiMacAddress'],
+                    })
+
+            if 'EthernetIPAddress' in device['network']['IPAddress']:
+                ips.append({
+                    'ipaddress': device['network']['IPAddress']['EthernetIPAddress'],
+                })
+
+            if not options['no_cellular_ips']:
+                if 'CellularIPAddress' in device['network']['IPAddress']:
+                    ips.append({
+                        'ipaddress': device['network']['IPAddress']['CellularIPAddress'],
+                    })
 
         return macs, ips
 
