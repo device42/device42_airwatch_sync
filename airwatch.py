@@ -15,9 +15,15 @@ class AirWatchApi:
         self.lookup_limit = config['lookup_limit']
 
     def get_list(self, name):
-        return requests.get('https://%s/api/mdm/%s/search?pagesize=%s' % (self.host, name, self.lookup_limit),
+        try:
+            return requests.get('https://%s/api/mdm/%s/search?pagesize=%s' % (self.host, name, self.lookup_limit),
                             auth=self.auth, headers=self.headers).json()
+        except ValueError:
+            return '{}'
 
     def get_item(self, name, pk, namespace):
-        return requests.get('https://%s/api/mdm/%s/%s/%s?pagesize=%s' % (self.host, name, pk, namespace, self.lookup_limit),
+        try:
+            return requests.get('https://%s/api/mdm/%s/%s/%s?pagesize=%s' % (self.host, name, pk, namespace, self.lookup_limit),
                             auth=self.auth, headers=self.headers).json()
+        except ValueError:
+            return '{}'
